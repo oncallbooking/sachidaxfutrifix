@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FutriFix — Technician Signup</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topnav">
+    <div class="brand">FutriFix</div>
+    <nav class="navlinks">
+      <a href="index.html">Discover</a>
+      <a href="client-post.html">Post Job</a>
+      <a href="signup-tech.html" class="active">Signup Technician</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="single-column container-sm">
+    <h1>Technician Signup</h1>
+    <form id="techForm" class="form-card" autocomplete="off">
+      <label>Full name<input name="fullname" required/></label>
+      <label>PIN code<input name="pin" inputmode="numeric" required/></label>
+      <label>Skills (comma separated)<input name="skills" required/></label>
+      <div class="form-row">
+        <label>Experience (years)<input name="experience" type="number" min="0" required/></label>
+        <label>Starting price<input name="price" type="number" required/></label>
+      </div>
+      <label>Short bio<textarea name="bio" rows="3"></textarea></label>
+      <div class="form-actions">
+        <button class="btn" type="submit">Create Profile</button>
+      </div>
+    </form>
+    <div id="signupResult" class="card small muted" aria-live="polite"></div>
+  </main>
+
+  <script type="module">
+    import { TechStore } from './js/main.js';
+    const form = document.getElementById('techForm');
+    const out = document.getElementById('signupResult');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const tech = {
+        id: 'TECH-' + Date.now().toString(36).toUpperCase(),
+        name: fd.get('fullname'),
+        pin: fd.get('pin'),
+        skills: fd.get('skills').split(',').map(s=>s.trim()),
+        experience: Number(fd.get('experience')),
+        price: Number(fd.get('price')),
+        bio: fd.get('bio'),
+        rating: (Math.random()*1.5+3.5).toFixed(1),
+        lat: 12.9716 + (Math.random()-0.5)/100,
+        lng: 77.5946 + (Math.random()-0.5)/100
+      };
+      await TechStore.addTech(tech);
+      out.textContent = 'Profile created — ID: ' + tech.id;
+      form.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* FutriFix — Modern Clean Styles */
+:root{
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent: linear-gradient(135deg,#6dd3ff 0%, #9b8cff 100%);
+  --border: #e6e9ef;
+  --shadow: 0 6px 18px rgba(32,41,60,0.06);
+  --radius: 12px;
+  --maxwidth: 1200px;
+  --gap: 18px;
+  --nav-height:64px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color-scheme: light;
+  color: #111827;
+  background: var(--bg);
+}
+
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);font-size:14px;line-height:1.4}
+.topnav{
+  height:var(--nav-height);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(250,250,252,0.6));
+  border-bottom:1px solid var(--border);backdrop-filter: blur(6px);
+}
+.topnav .brand{font-weight:700;font-size:18px;letter-spacing:0.4px}
+.topnav .navlinks{display:flex;gap:12px}
+.topnav .navlinks a{padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted)}
+.topnav .navlinks a.active{background:var(--card);box-shadow:var(--shadow);color:#111827}
+.topnav .actions{display:flex;gap:8px}
+
+.container{max-width:var(--maxwidth);margin:20px auto;display:grid;grid-template-columns:1fr 420px;gap:var(--gap);padding:0 18px}
+.container-sm{max-width:900px;margin:20px auto;padding:0 18px}
+.single-column{display:block}
+
+.left-panel, .right-panel{background:transparent}
+.panel-header{margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+.panel-header h2{margin:0;font-size:18px}
+.search-row{display:flex;gap:8px}
+.search-row input, .search-row select{flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--card)}
+.filters{display:flex;gap:12px;align-items:center}
+
+.card-grid{display:grid;gap:12px}
+.card-list{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:12px}
+.card.small{padding:8px}
+.card.muted{color:var(--muted)}
+.tech-card{display:flex;gap:12px;align-items:center;padding:12px}
+.tech-card .map-thumb{width:120px;height:84px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+.tech-card .map-inner{width:100%;height:100%}
+.card-main{flex:1}
+.card-title{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card-title .name{font-weight:600}
+.skills{color:var(--muted);font-size:13px;margin:6px 0}
+.meta-row{display:flex;gap:12px;color:var(--muted);font-size:13px}
+.card-actions{display:flex;gap:8px;margin-top:10px}
+
+.btn{background:transparent;border:1px solid transparent;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn.small{padding:6px 8px;font-size:13px}
+.btn.outline{background:transparent;border:1px solid var(--border)}
+.btn:active{transform:translateY(1px)}
+.card.job-card{display:flex;flex-direction:column;gap:10px}
+.job-top{display:flex;justify-content:space-between;align-items:flex-start}
+.job-info .job-service{font-weight:700}
+.job-meta{display:flex;flex-direction:column;gap:4px;text-align:right;color:var(--muted)}
+.job-desc{color:#111827;opacity:0.9}
+.job-bottom{display:flex;justify-content:space-between;align-items:center}
+
+.form-card{background:var(--card);padding:14px;border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.form-row{display:flex;gap:12px}
+.form-row label{flex:1}
+label{display:block;margin-bottom:8px}
+input, textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:transparent}
+.form-actions{display:flex;justify-content:flex-end;margin-top:8px}
+
+.container-sm h1{margin-top:12px}
+.muted{color:var(--muted)}
+
+.footer{margin-top:30px;text-align:center;color:var(--muted);font-size:13px;padding:20px}
+
+/* Responsive */
+@media (max-width:900px){
+  .container{grid-template-columns:1fr;padding:12px}
+  .tech-card{flex-direction:column;align-items:stretch}
+  .tech-card .map-thumb{width:100%;height:160px}
+}

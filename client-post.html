@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FutriFix — Post a Job</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topnav">
+    <div class="brand">FutriFix</div>
+    <nav class="navlinks">
+      <a href="index.html">Discover</a>
+      <a href="client-post.html" class="active">Post Job</a>
+      <a href="signup-tech.html">Signup Technician</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="single-column container-sm">
+    <h1>Post a Job</h1>
+    <form id="jobForm" class="form-card" autocomplete="off">
+      <div class="form-row">
+        <label>Full name<input name="fullname" required/></label>
+        <label>PIN code<input name="pin" inputmode="numeric" required/></label>
+      </div>
+      <label>Full address<textarea name="address" rows="2" required></textarea></label>
+      <div class="form-row">
+        <label>Service category
+          <select name="category" required>
+            <option value="electric">Electric</option>
+            <option value="battery">Battery</option>
+            <option value="tyres">Tyres</option>
+            <option value="software">Software</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label>Budget <input name="budget" type="number" required /></label>
+      </div>
+      <label>Description<textarea name="description" rows="4" required></textarea></label>
+      <label>Photos (optional)
+        <input name="photos" type="file" accept="image/*" multiple />
+      </label>
+      <label>Preferred time slots<input name="times" placeholder="e.g., 2025-12-01 10:00 - 12:00" /></label>
+      <div class="form-actions">
+        <button class="btn" type="submit">Post Job</button>
+      </div>
+    </form>
+
+    <div id="postResult" class="card small muted" aria-live="polite"></div>
+  </main>
+
+  <script type="module">
+    import { JobStore } from './js/bid-system.js';
+    const form = document.getElementById('jobForm');
+    const result = document.getElementById('postResult');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const job = {
+        id: 'JOB-' + Date.now().toString(36).toUpperCase(),
+        fullname: fd.get('fullname'),
+        pin: fd.get('pin'),
+        address: fd.get('address'),
+        category: fd.get('category'),
+        budget: Number(fd.get('budget')),
+        description: fd.get('description'),
+        times: fd.get('times'),
+        photos: [],
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 1000*60*60*6, // 6 hours for demo
+        bids: [],
+        status: 'open'
+      };
+      // store photos as filenames (not uploading)
+      const files = form.photos.files;
+      for (let i=0;i<files.length;i++) job.photos.push(files[i].name);
+
+      await JobStore.addJob(job);
+      result.textContent = 'Job posted — ID: ' + job.id;
+      form.reset();
+    });
+  </script>
+</body>
+</html>

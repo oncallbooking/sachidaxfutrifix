@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FutriFix — Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topnav">
+    <div class="brand">FutriFix</div>
+    <nav class="navlinks">
+      <a href="index.html">Discover</a>
+      <a href="client-post.html">Post Job</a>
+      <a href="signup-tech.html">Signup Technician</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="single-column container-sm">
+      <h1>Dashboard (Demo)</h1>
+      <div id="overview" class="card">
+        <h3>Live Overview</h3>
+        <div id="overviewContent"></div>
+      </div>
+      <div id="awardedList" class="card">
+        <h3>Awarded Jobs</h3>
+        <div id="awardedContent"></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { JobStore } from './js/bid-system.js';
+    const overview = document.getElementById('overviewContent');
+    const awarded = document.getElementById('awardedContent');
+
+    async function refresh() {
+      const jobs = await JobStore.getAll();
+      overview.innerHTML = '<strong>Total jobs:</strong> ' + jobs.length;
+      awarded.innerHTML = jobs.filter(j=>j.status==='awarded').map(j=>'<div>'+j.id+' '+j.category+'</div>').join('') || '<div class="muted">No awarded jobs yet</div>';
+    }
+    refresh();
+    window.addEventListener('storage', refresh);
+  </script>
+</body>
+</html>

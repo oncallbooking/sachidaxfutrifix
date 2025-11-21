@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FutriFix — Technician Availability & Live Jobs</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+q3mYk6b3e7s0vH1zv+v5w1tq3Gk2Vb0s9g1YkPqo=" crossorigin=""/>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topnav">
+    <div class="brand">FutriFix</div>
+    <nav class="navlinks">
+      <a href="index.html" class="active">Discover</a>
+      <a href="client-post.html">Post Job</a>
+      <a href="signup-tech.html">Signup Technician</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+    <div class="actions">
+      <button id="demoSeedBtn" class="btn small">Seed Demo Data</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="left-panel">
+      <div class="panel-header">
+        <h2>Find Technicians by PIN</h2>
+        <div class="search-row">
+          <input id="pinInput" type="text" placeholder="Enter PIN code (e.g., 560001)" inputmode="numeric" />
+          <select id="serviceFilter">
+            <option value="">All Services</option>
+          </select>
+        </div>
+        <div class="filters">
+          <label>Experience
+            <select id="expFilter">
+              <option value="">Any</option>
+              <option value="0-1">0-1 yrs</option>
+              <option value="2-4">2-4 yrs</option>
+              <option value="5+">5+ yrs</option>
+            </select>
+          </label>
+          <label>Price
+            <select id="priceFilter">
+              <option value="">Any</option>
+              <option value="0-499">0 - 499</option>
+              <option value="500-1499">500 - 1499</option>
+              <option value="1500+">1500+</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="techList" class="card-grid">
+        <!-- Technician cards loaded here -->
+      </div>
+    </section>
+
+    <section class="right-panel">
+      <div class="panel-header">
+        <h2>Live Jobs — Bidding Feed</h2>
+        <div class="feed-controls">
+          <button id="refreshFeed" class="btn">Refresh</button>
+          <label>Show
+            <select id="feedFilter">
+              <option value="all">All</option>
+              <option value="open">Open</option>
+              <option value="awarded">Awarded</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="jobFeed" class="card-list">
+        <!-- Live job cards -->
+      </div>
+    </section>
+  </main>
+
+  <template id="techCardTpl">
+    <article class="card tech-card">
+      <div class="card-main">
+        <div class="card-title">
+          <div class="name"></div>
+          <div class="rating"></div>
+        </div>
+        <div class="skills"></div>
+        <div class="meta-row">
+          <div class="distance"></div>
+          <div class="start-price"></div>
+        </div>
+      </div>
+      <div class="map-thumb" data-lat="" data-lng="">
+        <div class="map-inner" aria-hidden="true"></div>
+      </div>
+      <div class="card-actions">
+        <button class="btn small viewProfile">View Profile</button>
+        <button class="btn small outline hireBtn">Hire</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="jobCardTpl">
+    <article class="card job-card">
+      <div class="job-top">
+        <div class="job-info">
+          <div class="job-service"></div>
+          <div class="job-location"></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-budget"></div>
+          <div class="job-urgency"></div>
+        </div>
+      </div>
+
+      <div class="job-desc"></div>
+
+      <div class="job-bottom">
+        <div class="bid-count"></div>
+        <div class="timer"></div>
+        <div class="job-actions">
+          <button class="btn placeBid">Place Bid</button>
+          <button class="btn outline unlockChat">Unlock Chat</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/bid-system.js"></script>
+  <script type="module" src="js/chat-lock.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-VWmGg2z6o0wqGxKkB6s9h3Q7gZrB1bQ1xQ4Xk3fFh3s=" crossorigin=""></script>
+</body>
+</html>
